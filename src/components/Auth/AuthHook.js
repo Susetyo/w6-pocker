@@ -13,13 +13,28 @@ const initialValue = {
 const AuthHook = () => {
   const history = useHistory();
   const [valueInput, setValueInput] = useState(initialValue)
+
+  const checkCredentialLogin = (userNameLocalStorage) => {
+    if(valueInput['password'].value === userNameLocalStorage){
+      history.push("/rooms");
+    } 
+    
+    return 404
+  }
   
   const onSubmit = (isLogin) => {
     const userNameLocalStorage = window.localStorage.getItem("credentials")
-    if(isLogin && valueInput['password'].value === userNameLocalStorage){
-      history.push("/rooms");
-    }else{
-      
+    try{
+      if(isLogin){
+        const check = checkCredentialLogin(userNameLocalStorage);
+        if(check === 404) throw "Something went wrong";
+      }else{
+        
+      }
+
+
+    }catch(e){
+      alert(e)
     }
   }
 
